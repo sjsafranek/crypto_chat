@@ -4,7 +4,6 @@ import (
 	"flag"
 	"fmt"
 	"net/http"
-	"sync"
 
 	"github.com/gorilla/mux"
 	"github.com/gorilla/websocket"
@@ -17,9 +16,6 @@ const (
 
 var (
 	port      int    = DEFAULT_HTTP_PORT
-	guard            = sync.Mutex{}
-	clients          = make(map[*websocket.Conn]bool) // connected clients
-	broadcast        = make(chan Message)             // broadcast channel
 	logger           = ligneous.NewLogger()
 	version   string = "0.0.1"
 )
@@ -40,7 +36,7 @@ func main() {
 
 	router := mux.NewRouter()
 
-	// // Create a simple file server
+	// Create a simple file server
 	fs := http.FileServer(http.Dir("static"))
 	router.PathPrefix("/static/").Handler(http.StripPrefix("/static/", fs))
 	router.HandleFunc("/", chatroomHandler)
@@ -48,9 +44,6 @@ func main() {
 	http.Handle("/", router)
 
 	router.Use(LoggingMiddleWare, SetHeadersMiddleWare)
-
-	// Start listening for incoming chat messages
-	// go handleMessages()
 
 	// source: http://patorjk.com/software/taag/#p=display&f=Slant&t=CryptoChat
 	fmt.Println(`
