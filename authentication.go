@@ -51,7 +51,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 			http.Redirect(w, r, "/chat", http.StatusSeeOther)
 			return
 		}
-		err := tmpl.Execute(w, nil)
+		err := tmpl.Execute(w, "")
 		if err != nil {
 			logger.Error(err)
 			http.Error(w, err.Error(), http.StatusInternalServerError)
