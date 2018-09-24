@@ -47,6 +47,8 @@ func main() {
 	router.HandleFunc("/ws/{chatroom}", handleConnections)
 	http.Handle("/", router)
 
+	router.Use(LoggingMiddleWare, SetHeadersMiddleWare)
+
 	// Start listening for incoming chat messages
 	// go handleMessages()
 
