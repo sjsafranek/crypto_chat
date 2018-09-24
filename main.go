@@ -39,8 +39,10 @@ func main() {
 	// Create a simple file server
 	fs := http.FileServer(http.Dir("static"))
 	router.PathPrefix("/static/").Handler(http.StripPrefix("/static/", fs))
-	router.HandleFunc("/", chatroomHandler)
-	router.HandleFunc("/ws/{chatroom}", handleConnections)
+	router.HandleFunc("/login", LoginHandler).Methods("GET", "POST")
+	router.HandleFunc("/logout", LogoutHandler).Methods("GET")
+	router.HandleFunc("/chat", ChatHandler).Methods("GET")
+	router.HandleFunc("/ws/{chatroom}", WebSocketHandler)
 	http.Handle("/", router)
 
 	router.Use(LoggingMiddleWare, SetHeadersMiddleWare)
@@ -56,7 +58,7 @@ func main() {
 	`)
 
 	// Start the server on localhost port 8000 and log any errors
-	logger.Infof("http server started on :%v", port)
+	logger.Infof("Magic happens on port :%v", port)
 	err := http.ListenAndServe(fmt.Sprintf(":%v", port), nil)
 	if err != nil {
 		logger.Critical("ListenAndServe: ", err)

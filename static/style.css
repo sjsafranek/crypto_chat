@@ -2,6 +2,7 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    /*font-size: 11px;*/
 }
 
 main {
@@ -10,7 +11,8 @@ main {
 
 #chat-messages {
     min-height: 10vh;
-    height: 60vh;
+    /*height: 60vh;*/
+    height: 40vh;
     width: 100%;
     overflow-y: scroll;
 }

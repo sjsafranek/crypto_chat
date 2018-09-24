@@ -55,7 +55,7 @@ func (self *Hub) Init() {
 	self.guard = sync.Mutex{}
 	self.clients = make(map[*websocket.Conn]bool)		 // connected clients
 	self.broadcast = make(chan map[string]interface{})   // broadcast channel
-	go self.broadcaster()
+	self.broadcaster()
 }
 
 func (self *Hub) add(ws *websocket.Conn) {
@@ -100,17 +100,20 @@ func (self *Hub) Add(ws *websocket.Conn) {
 }
 
 func (self *Hub) broadcaster() {
-	for {
-		// Grab the next message from the broadcast channel
-		msg := <-self.broadcast
-		logger.Debug("Broadcasting message to clients")
-		// Send it out to every client that is currently connected
-		for client := range self.clients {
-			err := client.WriteJSON(msg)
-			if err != nil {
-				logger.Error(err)
-				self.remove(client)
+	go func() {
+		// for {
+		for msg := range self.broadcast {
+			// Grab the next message from the broadcast channel
+			// msg := <-self.broadcast
+			logger.Debug("Broadcasting message to clients")
+			// Send it out to every client that is currently connected
+			for client := range self.clients {
+				err := client.WriteJSON(msg)
+				if err != nil {
+					logger.Error(err)
+					self.remove(client)
+				}
 			}
 		}
-	}
+	}()
 }
