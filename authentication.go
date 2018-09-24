@@ -19,7 +19,7 @@ func init() {
 	store = sessions.NewCookieStore([]byte(secret))
 	db = Users{}
 	db.Fetch(users_file)
-	user := User{Username: "admin"}
+	user := User{Username: "admin", Email:"sjsafranek@gmail.com"}
 	user.SetPassword("dev")
 	db.Add(&user)
 	db.Save(users_file)
@@ -27,6 +27,7 @@ func init() {
 
 func HasSession(r *http.Request) bool {
 	session, err := store.Get(r, "chat-session")
+
 	if nil != err {
 		return false
 	}
@@ -36,9 +37,14 @@ func HasSession(r *http.Request) bool {
 	return true
 }
 
-func GetUsernameFromSession(r *http.Request) interface{} {
+func GetUserFromSession(r *http.Request) *User {
 	session, _ := store.Get(r, "chat-session")
-	return session.Values["username"]
+	username := session.Values["username"].(string)
+	user, err := db.Get(username)
+	if nil != err {
+		logger.Error(err)
+	}
+	return user
 }
 
 func LoginHandler(w http.ResponseWriter, r *http.Request) {

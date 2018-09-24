@@ -11,8 +11,8 @@ var chatApp = new Vue({
         ws: null, // Our websocket
         newMsg: '', // Holds new messages to be sent to the server
         chatContent: '', // A running list of chat messages displayed on the screen
-        email: config.username, // Email address used for grabbing an avatar
-        username: config.username, // Our username
+        email: user.email, // Email address used for grabbing an avatar
+        username: user.username, // Our username
         passphrase: null,
         chatroom: null,
         debug: true,

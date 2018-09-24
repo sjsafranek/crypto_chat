@@ -20,8 +20,8 @@
         <main id="app">
 
             <div class="row" v-if="joined">
-                <div class="input-field col s1 right">
-                    <button class="waves-effect waves-light btn" @click="close()">
+                <div class="input-field col s1 offset-s11">
+                    <button class="waves-effect waves-light btn red" @click="close()">
                         <i class="material-icons">close</i>
                     </button>
                 </div>
@@ -71,8 +71,9 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 
         <script>
-            var config = {
-                username: '{{index . }}'
+            var user = {
+                username: '{{.Username}}',
+                email: '{{.Email}}'
             };
         </script>
 

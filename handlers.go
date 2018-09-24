@@ -17,7 +17,7 @@ func ChatHandler(w http.ResponseWriter, r *http.Request) {
 	// Return results
 	template_file := "./templates/chat.html"
 	tmpl, _ := template.ParseFiles(template_file)
-	err := tmpl.Execute(w, GetUsernameFromSession(r))
+	err := tmpl.Execute(w, GetUserFromSession(r))
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
