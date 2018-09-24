@@ -15,7 +15,7 @@ func ChatHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Return results
-	template_file := "./templates/index.html"
+	template_file := "./templates/chat.html"
 	tmpl, _ := template.ParseFiles(template_file)
 	err := tmpl.Execute(w, GetUsernameFromSession(r))
 	if err != nil {
