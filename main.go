@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"flag"
 	"fmt"
 	"net/http"
@@ -30,6 +31,19 @@ var upgrader = websocket.Upgrader{
 func init() {
 	flag.IntVar(&port, "p", DEFAULT_HTTP_PORT, "http server port")
 	flag.Parse()
+
+	if 1 < len(os.Args) {
+		if "createuser" == os.Args[1] {
+			email := os.Args[2]
+			password := os.Args[3]
+			CreateUser(email, password)
+			fmt.Println("User created")
+			os.Exit(0)
+		} else if "version" == os.Args[1] {
+			fmt.Println(version)
+			os.Exit(0)
+		}
+	}
 }
 
 func main() {

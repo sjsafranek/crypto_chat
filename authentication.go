@@ -19,7 +19,7 @@ func init() {
 	store = sessions.NewCookieStore([]byte(secret))
 	db = Users{}
 	db.Fetch(users_file)
-	user := User{Username: "admin", Email:"sjsafranek@gmail.com"}
+	user := User{Username: "admin", Email:"admin@email.com"}
 	user.SetPassword("dev")
 	db.Add(&user)
 	db.Save(users_file)
