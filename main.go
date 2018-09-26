@@ -1,10 +1,10 @@
 package main
 
 import (
-	"os"
 	"flag"
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
 	"github.com/gorilla/websocket"
@@ -16,9 +16,9 @@ const (
 )
 
 var (
-	port      int    = DEFAULT_HTTP_PORT
-	logger           = ligneous.NewLogger()
-	version   string = "0.0.1"
+	port    int    = DEFAULT_HTTP_PORT
+	logger         = ligneous.NewLogger()
+	version string = "0.0.1"
 )
 
 // Configure the upgrader
@@ -77,4 +77,6 @@ func main() {
 	if err != nil {
 		logger.Critical("ListenAndServe: ", err)
 	}
+
+	// google-chrome --app=http://localhost:8000/login --window-size=600,400
 }

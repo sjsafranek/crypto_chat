@@ -9,10 +9,24 @@ main {
     flex: 1 0 auto;
 }
 
-#chat-messages {
+#chat-messages, .chat-messages {
     min-height: 10vh;
     /*height: 60vh;*/
     height: 40vh;
     width: 100%;
     overflow-y: scroll;
+}
+
+
+
+.input-group {
+    display: table;
+}
+
+.input-group input, .suffix {
+    display: table-cell;
+}
+
+.suffix {
+    width: 1%;
 }

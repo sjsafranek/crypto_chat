@@ -17,31 +17,31 @@
                 </div>
             </nav>
         </header>
+
         <main id="app">
 
             <div class="row" v-if="joined">
-                <div class="input-field col s1 offset-s11">
-                    <button class="waves-effect waves-light btn red btn-small" @click="close()">
-                        <i class="material-icons">close</i>
-                    </button>
-                </div>
-                <div class="col s12">
-                    <div class="card horizontal">
-                        <div id="chat-messages" class="card-content" v-html="chatContent">
+                <div class="col s12 m6">
+                    <div class="card chatroom">
+                        <div class="card-title">
+                            <span></span>
+                            <button class="right waves-effect waves-light btn red btn-small" @click="close()">
+                                <i class="material-icons">close</i>
+                            </button>
+                        </div>
+                        <div id="chat-messages" class="card-content" v-html="chatContent"></div>
+                        <div class="card-action">
+                            <div class="input-field input-group">
+                                <input id="message" type="text" v-model="newMsg" @keyup.enter="send" class="validate">
+                                <label for="message">Message</label>
+                                <span class="suffix">
+                                    <a class="waves-effect waves-light btn btn-floating" @click="send">
+                                        <i class="material-icons">chat</i>
+                                    </a>
+                                </span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="row" v-if="joined">
-                <div class="input-field col s8">
-                    <input type="text" v-model="newMsg" @keyup.enter="send">
-                </div>
-                <div class="input-field col s4">
-                    <button class="waves-effect waves-light btn" @click="send">
-                        <i class="material-icons right">chat</i>
-                        Send
-                    </button>
                 </div>
             </div>
 

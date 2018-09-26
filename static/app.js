@@ -60,6 +60,11 @@ var chatApp = new Vue({
         connect: function(){
             var self = this;
 
+            // $('.chatroom .card-title span').text(this.chatroom);
+            // HACK
+            setTimeout(function(){  $('.chatroom .card-title span').text(self.chatroom); },250);
+            //.end
+
             this.ws = new WebSocket('ws://' + window.location.host + '/ws/' + this.chatroom);
 
             this.ws.addEventListener('message', function(e) {
