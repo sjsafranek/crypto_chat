@@ -96,14 +96,20 @@ ChatRoom.prototype.buildUi = function() {
     var self = this;
 
     this.chatMessages = $('<div>').addClass('card-content chat-messages');
-    this.inputMessage = $('<input>', {type: 'text', id:'message'}).addClass('validate');
+    this.inputMessage = $('<input>', {type: 'text', id: this.data.chatroom})
+                            .addClass('validate')
+                            .on('keyup', function(e){
+                                if (e.which == 13) {
+                                    self.send();
+                                }
+                            });
 
     this.$el = $('<div>').addClass('row').append(
         // $('<div>').addClass('col s12 m6').append(
         $('<div>').addClass('col s12').append(
             $('<div>').addClass('card').append(
                 $('<div>').addClass('card-title').append(
-                    $('<span>').append(this.data.chatroom),
+                    $('<span>').append(this.data.chatroom).css({'padding-left':'16px'}),
                     $('<button>')
                             .addClass('right waves-effect waves-light btn red btn-small')
                             .on('click', function(){
@@ -117,7 +123,7 @@ ChatRoom.prototype.buildUi = function() {
                 $('<div>').addClass('card-action').append(
                     $('<div>').addClass('input-field input-group').append(
                         this.inputMessage,
-                        $('<label>', {for:'message'}).append('Message'),
+                        $('<label>', {for: this.data.chatroom}).append('Message'),
                         $('<span>').addClass('suffix').append(
                             $('<a>').addClass('waves-effect waves-light btn btn-floating')
                                 .on('click', function() {

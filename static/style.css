@@ -16,7 +16,9 @@ main {
     overflow-y: scroll;
 }
 
-
+#app {
+    padding-top: 5px;
+}
 
 .input-group {
     display: table;
