@@ -16,6 +16,7 @@ var pool Pool
 type Pool struct {
 	guard sync.Mutex
 	hubs  map[string]*Hub
+	// Callback func(map[string]interface{}, *Hub)
 }
 
 func (self *Pool) Init() {
