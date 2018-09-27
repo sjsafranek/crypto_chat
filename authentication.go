@@ -2,27 +2,20 @@ package main
 
 import (
 	"errors"
-	// "fmt"
-	"net/http"
 	"html/template"
+	"net/http"
 
 	"github.com/google/uuid"
 	"github.com/gorilla/sessions"
+
+	"github.com/sjsafranek/simpleusers"
 )
 
 var store *sessions.CookieStore
-var users_file = "users.json"
-var db Users
 
 func init() {
 	secret := uuid.New().String()
 	store = sessions.NewCookieStore([]byte(secret))
-	db = Users{}
-	db.Fetch(users_file)
-	user := User{Username: "admin", Email:"admin@email.com"}
-	user.SetPassword("dev")
-	db.Add(&user)
-	db.Save(users_file)
 }
 
 func HasSession(r *http.Request) bool {
@@ -37,7 +30,7 @@ func HasSession(r *http.Request) bool {
 	return true
 }
 
-func GetUserFromSession(r *http.Request) *User {
+func GetUserFromSession(r *http.Request) *simpleusers.User {
 	session, _ := store.Get(r, "chat-session")
 	username := session.Values["username"].(string)
 	user, err := db.Get(username)

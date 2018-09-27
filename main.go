@@ -7,7 +7,6 @@ import (
 	"os"
 
 	"github.com/gorilla/mux"
-	"github.com/gorilla/websocket"
 	"github.com/sjsafranek/ligneous"
 )
 
@@ -20,13 +19,6 @@ var (
 	logger         = ligneous.NewLogger()
 	version string = "0.0.1"
 )
-
-// Configure the upgrader
-var upgrader = websocket.Upgrader{
-	CheckOrigin: func(r *http.Request) bool {
-		return true
-	},
-}
 
 func init() {
 	flag.IntVar(&port, "p", DEFAULT_HTTP_PORT, "http server port")
